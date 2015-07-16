@@ -1,0 +1,14 @@
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"
+	activate="activate"
+	deactivate="deactivate"
+	enabled="true"
+	immediate="true" name="org.darugna.kura.weblog.LogConsole">
+
+	<implementation class="org.darugna.kura.weblog.LogConsole"/>
+
+	<reference name="HttpService" 
+              bind="setHttpService"
+              unbind="unsetHttpService"
+              interface="org.osgi.service.http.HttpService"/>
+
+</scr:component>
