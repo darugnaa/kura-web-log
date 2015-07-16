@@ -2,6 +2,7 @@ package org.darugna.kura.weblog;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentException;
+import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 import org.slf4j.Logger;
@@ -22,10 +23,10 @@ public class LogConsole {
 	}
 	
 	protected void activate(BundleContext context) {
-		//HttpContext httpCtx = new HttpContext();
+		HttpContext httpContext = new DefaultHttpContext(m_httpService.createDefaultHttpContext());
 		
 		try {
-			m_httpService.registerResources("/weblog", "www/index.html", null);
+			m_httpService.registerResources("/weblog", "www/index.html", httpContext);
 		} catch (NamespaceException e) {
 			s_logger.error("Error registering weblog", e);
 			throw new ComponentException(e);
