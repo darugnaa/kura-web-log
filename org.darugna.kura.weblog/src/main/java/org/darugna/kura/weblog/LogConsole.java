@@ -26,7 +26,7 @@ public class LogConsole {
 		HttpContext httpContext = new DefaultHttpContext(m_httpService.createDefaultHttpContext());
 		
 		try {
-			m_httpService.registerResources("/weblog", "www/index.html", httpContext);
+			m_httpService.registerResources("/weblog", "src/main/webapp/index.html", httpContext);
 		} catch (NamespaceException e) {
 			s_logger.error("Error registering weblog", e);
 			throw new ComponentException(e);
