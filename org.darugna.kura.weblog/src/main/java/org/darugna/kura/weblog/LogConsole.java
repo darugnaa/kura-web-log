@@ -1,5 +1,7 @@
 package org.darugna.kura.weblog;
 
+import javax.servlet.ServletException;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentException;
 import org.osgi.service.http.HttpContext;
@@ -27,7 +29,10 @@ public class LogConsole {
 		
 		try {
 			m_httpService.registerResources("/weblog", "src/main/webapp/index.html", httpContext);
-		} catch (NamespaceException e) {
+			m_httpService.registerResources("/weblogjs", "src/main/webapp/weblogjs", httpContext);
+			
+			m_httpService.registerServlet("/weblogapi", new LogLevelApi(), null, httpContext);
+		} catch (NamespaceException|ServletException e) {
 			s_logger.error("Error registering weblog", e);
 			throw new ComponentException(e);
 		}
