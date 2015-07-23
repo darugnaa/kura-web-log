@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	
 	function createComboBox(loggerName, loggerLevel) {
-		var s = $('<select />');
+		var s = $('<select />', {id: loggerName});
 		
 		levels = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL'];
 		for(var l in levels) {
@@ -18,6 +18,20 @@ $(document).ready(function () {
 //		for(var l in levels) {
 //			comboHtml += '<option value="' + levels[l] + '">' + levels[l] + "</option>";
 //		}
+		// http://stackoverflow.com/questions/12750307/jquery-select-change-event-get-selected-option
+		s.on('change', function(e) {
+			var loggerName = this.id;
+			var loggerLevel = this.value;
+			
+			$.ajax({
+				url: 'weblogapi',
+				type: 'POST',
+				dataType: 'json',
+				data: {name: loggerName, level: loggerLevel}
+			}).fail(function(jqxhr, status, err) {
+		        alert('Cannot set ' + loggerName + ': ' + loggerLevel);
+		    })
+		})
 		
 		return s;
 	}
@@ -47,8 +61,8 @@ $(document).ready(function () {
 	})
 	.fail(function(jqxhr, status, err) {
         alert(jqxhr);
-    })
-    .always(function(jqxhr, status, err) {
-		alert('Always');
+//    })
+//    .always(function(jqxhr, status, err) {
+//		alert('Always');
     });
 });

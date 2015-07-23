@@ -46,6 +46,17 @@ public final class LogLevelApi extends HttpServlet {
 		}
 	}
 	
+	public final void doPost(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, String[]> m = request.getParameterMap();
+
+		for (String p : m.keySet()) {
+			s_logger.debug("{}:{}", p, m.get(p)[0]);
+		}
+		String loggerName = request.getParameter("name");
+		String loggerLevel = request.getParameter("level");
+		
+		response.setStatus(HttpServletResponse.SC_OK);
+	}
 	
 	private Map<String,String>[] getLoggersLevel() {
 		Enumeration<?> currentLoggers = org.apache.log4j.LogManager.getCurrentLoggers();
