@@ -1,14 +1,25 @@
 $(document).ready(function () {
 	
 	function createComboBox(loggerName, loggerLevel) {
-		var comboHtml = '<select id="combo.' + loggerName + '">';
-
+		var s = $('<select />');
+		
 		levels = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL'];
 		for(var l in levels) {
-			comboHtml += '<option value="' + levels[l] + '">' + levels[l] + "</option>";
+			var props = {value: levels[l], text: levels[l]};
+			if (levels[l] == loggerLevel) {
+				props['selected'] = 'selected';
+			}
+		    $('<option />', props).appendTo(s);
 		}
 		
-		return comboHtml;
+		
+//		var comboHtml = '<select id="combo.' + loggerName + '">';
+//
+//		for(var l in levels) {
+//			comboHtml += '<option value="' + levels[l] + '">' + levels[l] + "</option>";
+//		}
+		
+		return s;
 	}
 	
 	
@@ -19,24 +30,18 @@ $(document).ready(function () {
 		dataType: 'json',
 	})
 	.done(function(data) {
-		console.log(data);
+		//console.log(data);
 		for (var i in data) {
-			console.log(i);
+			console.log(data[i]);
+			var row = $('<tr />');
+			$('<td />', {text: data[i].name}).appendTo(row);
 			
-			var txt = '<tr><td>';
-			txt += data[i].name;
-			txt += '</td><td>';
-			txt += createComboBox(data[i].name ,data[i].level);
-			txt += '</td></tr>';
-//    		for (var key in data[i]){
-//    			txt+= '<tr>';
-//    			txt+= '<td>'+key+'</td>';
-//    			txt+= '<td>'+data[i][key]+'</td>';
-//    			txt+= '</tr>';
-//    		}
-//    		txt+= '</tr>';
-			$.parseHTML(txt)
-    		$('#lltable').append(txt);
+			comboTd = $('<td />');
+			combo = createComboBox(data[i].name ,data[i].level);
+			combo.appendTo(comboTd);
+			comboTd.appendTo(row);
+			
+			row.appendTo('#lltable');
 		}
 		
 	})
