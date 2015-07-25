@@ -12,12 +12,6 @@ $(document).ready(function () {
 		    $('<option />', props).appendTo(s);
 		}
 		
-		
-//		var comboHtml = '<select id="combo.' + loggerName + '">';
-//
-//		for(var l in levels) {
-//			comboHtml += '<option value="' + levels[l] + '">' + levels[l] + "</option>";
-//		}
 		// http://stackoverflow.com/questions/12750307/jquery-select-change-event-get-selected-option
 		s.on('change', function(e) {
 			var loggerName = this.id;
@@ -26,7 +20,6 @@ $(document).ready(function () {
 			$.ajax({
 				url: 'weblogapi',
 				type: 'POST',
-				dataType: 'json',
 				data: {name: loggerName, level: loggerLevel}
 			}).fail(function(jqxhr, status, err) {
 		        alert('Cannot set ' + loggerName + ': ' + loggerLevel);

@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Level;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("serial")
 public final class LogLevelApi extends HttpServlet {
 	
 	private static final Logger s_logger = LoggerFactory.getLogger(LogLevelApi.class);
@@ -55,6 +55,18 @@ public final class LogLevelApi extends HttpServlet {
 		String loggerName = request.getParameter("name");
 		String loggerLevel = request.getParameter("level");
 		
+		Enumeration<?> currentLoggers = org.apache.log4j.LogManager.getCurrentLoggers();
+		
+		while (currentLoggers.hasMoreElements()) {
+			org.apache.log4j.Logger log4jLogger = (org.apache.log4j.Logger)currentLoggers.nextElement();
+			
+			if (loggerName.equals(log4jLogger.getName())) {
+				Level oldLevel = log4jLogger.getEffectiveLevel();
+				log4jLogger.setLevel(Level.toLevel(loggerLevel, oldLevel));
+				s_logger.info("{}: {}", loggerName, log4jLogger.getEffectiveLevel());
+			}
+		}
+		
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
 	
@@ -68,6 +80,7 @@ public final class LogLevelApi extends HttpServlet {
 			loggerNames.add(log4jLogger.getName());
 		}
 		Collections.sort(loggerNames);
+		@SuppressWarnings("unchecked")
 		Map<String,String>[] orderedLoggers = new Map[loggerNames.size()];
 		for (int i = 0; i < loggerNames.size(); ++i) {
 			orderedLoggers[i] = new HashMap<String,String>();
