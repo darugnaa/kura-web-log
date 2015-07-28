@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.darugna.kura</groupId>
+	<artifactId>weblog</artifactId>
+	<version>1.0.0</version>
+	<name>Kura web log level</name>
+	
+	<packaging>pom</packaging>
+	
+	<modules>
+		<module>org.darugna.kura.weblog</module>
+		<module>distrib</module>
+	</modules>
+
+	<properties>
+		<tycho-version>0.20.0</tycho-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<repositories>
+ 		<repository>
+	    	<id>p2-repo-common</id>
+    		<url>file:///${env.KURA_WS}/target-definition/common/repository</url>
+    		<layout>p2</layout>
+  		</repository>
+		<repository>
+			<id>p2-repo-equinox</id>
+			<url>file:///${env.KURA_WS}/target-definition/equinox_3.8.1/repository/</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
+	
+	<build>
+		<!-- We use thycho-maven-plugin to grab dependencies from local P2 repo. -->
+		<!-- To define the plugin version in your parent POM -->
+		<!-- http://www.eclipse.org/tycho/sitedocs/tycho-compiler-plugin/plugin-info.html -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-maven-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<extensions>true</extensions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
