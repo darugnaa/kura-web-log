@@ -6,8 +6,7 @@ Bundle-Version: 1.0.0
 Bundle-Vendor: org.darugna
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Service-Component: OSGI-INF/weblog.xml
-Import-Package:
- javax.security.auth,
+Import-Package: javax.security.auth,
  javax.servlet;version="2.6.0",
  javax.servlet.http;version="2.6.0",
  org.json,
