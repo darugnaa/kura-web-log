@@ -36,7 +36,7 @@ Bundle-Version: 1.0.0
 		<!-- Do NOT include directory entries in the JAR, only the files.
 			First, the MANIFEST.
 			Then, bundles in the correct order -->
-		<jar destfile="${basedir}/../org.darugna.kura.weblog_${deployment.package.version}.dp"
+		<jar destfile="${basedir}/../org.darugna.kura.weblog_1.0.0.dp"
 				manifest="${project.build.directory}/dp_stage/META-INF/MANIFEST.MF"
 				includes="" filesonly="true">
 			<filelist dir="${project.build.directory}/dp_stage/" files="${sortedFiles}"/>
