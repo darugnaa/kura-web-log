@@ -1,11 +1,14 @@
 # kura-web-log
 Log level selector and viewer for [Eclipse Kura](http://www.eclipse.org/kura/).
 
+Access it on your running kura instance on **http:/kura-ip-address/weblog** and simply click on the desired level to change the logger's logging level! No more need to access the OSGi console with telnet to change levels at runtime =)  
+Very useful when developing your own bundles.
 <img src="http://i.imgur.com/88mNJfz.png?1" />
 
+## Download
+[org.darugna.kura.weblog 1.0.0](https://drive.google.com/file/d/0B0tptNwKwCF_RzBYZlhZRmx6Wjg/view?usp=sharing)
 
-
-## Compile!
+## Compile it yourself
 Clone the repository to your local machine
 
     git clone https://github.com/darugnaa/kura-web-log.git
@@ -22,4 +25,4 @@ Now build with Maven
 
     mvn clean verify
     
-After the compilation you will find the Deployment Package ready to install to a remote Kura!
+After the compilation you will find the Deployment Package ready to be installed to a remote Kura!
