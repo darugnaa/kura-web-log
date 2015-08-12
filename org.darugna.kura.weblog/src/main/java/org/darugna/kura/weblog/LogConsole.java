@@ -28,8 +28,8 @@ public class LogConsole {
 		HttpContext httpContext = new DefaultHttpContext(m_httpService.createDefaultHttpContext());
 		
 		try {
-			m_httpService.registerResources("/weblog", "src/main/webapp/index.html", httpContext);
-			m_httpService.registerResources("/weblogjs", "src/main/webapp/weblogjs", httpContext);
+			m_httpService.registerResources("/weblog", "www/index.html", httpContext);
+			m_httpService.registerResources("/weblogjs", "www/weblogjs", httpContext);
 			
 			m_httpService.registerServlet("/weblogapi", new LogLevelApi(), null, httpContext);
 		} catch (NamespaceException|ServletException e) {
@@ -41,6 +41,8 @@ public class LogConsole {
 	
 	protected void deactivate(BundleContext context) {
 		m_httpService.unregister("/weblog");
+		m_httpService.unregister("/weblogjs");
+		m_httpService.unregister("/weblogapi");
 		
 		s_logger.info("WebLog deactivated");
 	}

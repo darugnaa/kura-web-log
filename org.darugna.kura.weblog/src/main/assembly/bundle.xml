@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<assembly>
+    <id>bundle</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/classes/</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/${project.artifactId}-${project.version}/</directory>
+            <outputDirectory>www</outputDirectory>
+            <includes>
+                <include>index.html</include>
+				<include>weblogjs/**</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>OSGI-INF</directory>
+            <outputDirectory>OSGI-INF</outputDirectory>
+            <includes>
+                <include>*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
