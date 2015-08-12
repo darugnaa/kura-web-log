@@ -7,12 +7,12 @@
 	<parent>
 		<groupId>org.darugna.kura</groupId>
 		<artifactId>weblog</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>org.darugna.kura.weblog</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>Kura web log level component</name>
 
@@ -119,6 +119,7 @@
 							</descriptors>
 						</configuration>
 					</execution>
+					<!-- 
 					<execution>
 						<id>standard-jar</id>
 						<phase>package</phase>
@@ -136,6 +137,7 @@
 							</descriptors>
 						</configuration>
 					</execution>
+					 -->
 				</executions>
 			</plugin>
 		</plugins>

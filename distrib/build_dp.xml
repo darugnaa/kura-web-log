@@ -6,16 +6,16 @@
 		<!-- Create the manifest -->
 		<echo file="${project.build.directory}/dp_stage/META-INF/MANIFEST.MF" append="false">Manifest-Version: 1.0
 DeploymentPackage-SymbolicName: org.darugna.kura.weblog
-DeploymentPackage-Version: 1.0.0
+DeploymentPackage-Version: 1.0.1
 
-Name: bundles/org.darugna.kura.weblog_1.0.0.jar
+Name: bundles/org.darugna.kura.weblog_1.0.1.jar
 Bundle-SymbolicName: org.darugna.kura.weblog;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1
 </echo>
 
 		<!-- move everything into place -->
 		<echo message="Copying org.darugna.kura.weblog" />
-        <copy    file="${basedir}/../org.darugna.kura.weblog/target/org.darugna.kura.weblog_1.0.0.jar"
+        <copy    file="${basedir}/../org.darugna.kura.weblog/target/org.darugna.kura.weblog_1.0.1.jar"
                  todir="${project.build.directory}/dp_stage/bundles/" />
                  
 		<!-- Files MUST be included in the jar in the same order as they are declared in the DP MANIFEST.
@@ -36,7 +36,7 @@ Bundle-Version: 1.0.0
 		<!-- Do NOT include directory entries in the JAR, only the files.
 			First, the MANIFEST.
 			Then, bundles in the correct order -->
-		<jar destfile="${basedir}/../org.darugna.kura.weblog_1.0.0.dp"
+		<jar destfile="${basedir}/../org.darugna.kura.weblog_1.0.1.dp"
 				manifest="${project.build.directory}/dp_stage/META-INF/MANIFEST.MF"
 				includes="" filesonly="true">
 			<filelist dir="${project.build.directory}/dp_stage/" files="${sortedFiles}"/>
