@@ -6,7 +6,7 @@ Very useful when developing your own bundles.
 <img src="http://i.imgur.com/88mNJfz.png?1" />
 
 ## Download
-[org.darugna.kura.weblog 1.0.0](https://drive.google.com/file/d/0B0tptNwKwCF_RzBYZlhZRmx6Wjg/view?usp=sharing)
+[org.darugna.kura.weblog 1.0.1](https://docs.google.com/uc?id=0B0tptNwKwCF_UW0tOTBNZU83R0k&export=download)
 
 ## Compile it yourself
 Clone the repository to your local machine
