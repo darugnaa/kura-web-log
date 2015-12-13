@@ -26,3 +26,11 @@ Now build with Maven
     mvn clean verify
     
 After the compilation you will find the Deployment Package ready to be installed to a remote Kura!
+
+## Kura compatibility
+This release builds with the following *Developer's Workspace (with Web UI)* versions:
+* Kura 1.2.0 **✓**
+* Kura 1.2.1 **✓**
+* Kura 1.2.2 **✓**
+* Kura 1.3.0 **✗**
+
