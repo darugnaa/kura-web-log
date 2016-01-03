@@ -6,7 +6,7 @@
 
 	<groupId>org.darugna.kura</groupId>
 	<artifactId>weblog</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 	<name>Kura web log level</name>
 	
 	<packaging>pom</packaging>
@@ -21,15 +21,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<!-- Dependencies are loaded from local Eclipse workspace folder.
+	     Set the KURA_WS environment variable accordingly. -->
 	<repositories>
  		<repository>
-	    	<id>p2-repo-common</id>
-    		<url>file:///${env.KURA_WS}/target-definition/common/repository</url>
-    		<layout>p2</layout>
+	    		<id>p2-repo-common</id>
+    			<url>file:${env.KURA_WS}/target-definition/common/repository</url>
+    			<layout>p2</layout>
   		</repository>
 		<repository>
 			<id>p2-repo-equinox</id>
-			<url>file:///${env.KURA_WS}/target-definition/equinox_3.8.1/repository/</url>
+			<url>file:${env.KURA_WS}/target-definition/equinox_3.8.1/repository/</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
