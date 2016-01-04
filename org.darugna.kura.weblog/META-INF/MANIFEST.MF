@@ -9,10 +9,11 @@ Service-Component: OSGI-INF/weblog.xml
 Import-Package: javax.security.auth,
  javax.servlet;version="2.6.0",
  javax.servlet.http;version="2.6.0",
+ org.apache.log4j;version="1.2.17",
+ org.apache.log4j.spi;version="1.2.17",
  org.json,
  org.osgi.framework;version="1.4.0",
  org.osgi.service.component;version="1.2.0",
  org.osgi.service.http;version="1.2.1",
- org.apache.log4j;version="1.2.17",
  org.slf4j;version="1.6.4"
 Bundle-ClassPath: .
