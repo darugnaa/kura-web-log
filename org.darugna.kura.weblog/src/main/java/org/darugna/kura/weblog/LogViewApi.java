@@ -1,5 +1,7 @@
 package org.darugna.kura.weblog;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -14,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,14 +34,32 @@ final class LogViewApi extends HttpServlet {
 	private WebAppender m_webAppender;
 	
 	public final void doGet(HttpServletRequest request, HttpServletResponse response) {
-		response.setContentType("application/json");
 		if (!m_enabled.get()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
 		}
+		response.setContentType("application/json");
+		PrintWriter out = null;
 		
-		List<String> messages = m_webAppender.readLogMessages();
-		
-		
+		try {
+			out = response.getWriter();
+			JSONArray json = new JSONArray();
+			List<String> messages = m_webAppender.readLogMessages();
+			
+			for (String m : messages) {
+				json.put(m);
+			}
+					
+			out.print(json.toString());
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}
 	}
 	
 	public final void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -47,9 +69,9 @@ final class LogViewApi extends HttpServlet {
 		}
 		m_webAppender = new WebAppender();
 		org.apache.log4j.LogManager.getRootLogger().addAppender(m_webAppender);
-		m_enabled.set(true);
 		m_scheduledFuture = m_scheduledExecutor.scheduleAtFixedRate(new ExpireCheckTask(),
 																	5, 5, TimeUnit.SECONDS);
+		m_enabled.set(true);
 		s_logger.info("Added WebAppender");
 	}
 	
@@ -70,6 +92,9 @@ final class LogViewApi extends HttpServlet {
 
 		@Override
 		protected void append(LoggingEvent loggingEvent) {
+			if (loggingEvent.getLevel().toInt() < Level.DEBUG_INT) {
+				return;
+			}
 			m_queue.add(loggingEvent);
 		}
 		
@@ -79,10 +104,12 @@ final class LogViewApi extends HttpServlet {
 		
 		public List<String> readLogMessages() {
 			List<String> messages = new ArrayList<>();
+			m_lastChecked = System.currentTimeMillis();
 			
 			LoggingEvent le = m_queue.poll();
 			while (le != null) {
 				messages.add(le.getRenderedMessage());
+				le = m_queue.poll();
 			}
 			
 			return messages;

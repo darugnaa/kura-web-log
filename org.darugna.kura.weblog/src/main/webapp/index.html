@@ -3,12 +3,23 @@
   <title>WebLog</title>
 </head>
 <body>
+<div>
+	<a name="top"/>
+	<button id="levels_showhide">Hide levels</button> <a href="#view">Scroll to view</a>
+</div>
+<div id="levels">
 <table style="width=90%;">
   <thead><tr><th>Logger</th><th>Level</th></tr></thead>
   <tbody id="lltable">
   
   </tbody>
 </table>
+</div>
+<hr/>
+<a name="view"/>
+<div><button id="log_view">View log</button> <button id="log_clear">Clear</button> <a href="#top">Top</a></div> 
+<div id="messages">
+</div>
 
 <script src="weblogjs/jquery-2.1.4.min.js"></script>
 <script src="weblogjs/index.js"></script>
