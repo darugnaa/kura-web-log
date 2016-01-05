@@ -1,4 +1,9 @@
 $(document).ready(function () {
+	POLLING_INTERVAL_MSEC = 500;
+	
+	//
+	// Prepare the comboboxes with loggers and levels
+	//
 	
 	function createComboBox(loggerName, loggerLevel) {
 		var s = $('<select />', {id: loggerName});
@@ -67,25 +72,29 @@ $(document).ready(function () {
 		}
 	});
 	
-	// get the messages
+	
+	//
+	// Log messages
+	//
+	
 	var interval = null;
 	
 	function readMessages() {
-		console.log('readMessages()');
 		$.ajax({
 			url: 'weblogviewapi',
 			type: 'GET',
 			dataType: 'json',
 		}).done(function(data) {
-			console.log(data);
 			var messages = $('#messages');
 			for (var i in data) {
 				messages.append(data[i]);
 			}
 		}).fail(function(jqxhr, status, err) {
-	        alert(jqxhr);
 	        clearInterval(interval);
-	        console.log('Polling stopped');
+	        console.log('Polling stopped, API error');
+	        $('#messages').append('-- STOP -- error: ' + status + '\n');
+	        $('#log_view').html("View log");
+	        log_view_enabled = false;
 	    });
 	}
 		
@@ -97,17 +106,19 @@ $(document).ready(function () {
 	        console.log('Polling stopped');
 	        log_view_enabled = false;
 	        $('#log_view').html("View log");
+	        $('#messages').append('-- STOP --\n');
 		} else {
 			$.ajax({
 				url: 'weblogviewapi',
 				type: 'POST'
 			}).fail(function(jqxhr, status, err) {
-		        alert('Cannot activate web appender: ' + err);
+		        alert('Cannot activate web appender: ' + status + err);
 		    }).success(function(jqxhr, status, err) {
 		    	console.log('WebAppender activated, polling started');
-		    	interval = setInterval(readMessages, 2000);
+		    	interval = setInterval(readMessages, POLLING_INTERVAL_MSEC);
 		    	$('#log_view').html("Stop");
 		    	log_view_enabled = true;
+		    	$('#messages').append('-- START --\n');
 		    });
 		}
 	});
