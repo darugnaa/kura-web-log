@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.Level;
+import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -28,6 +28,7 @@ final class LogViewApi extends HttpServlet {
 	private static final Logger s_logger = LoggerFactory.getLogger(LogViewApi.class);
 	
 	private static final long EXPIRE_INTERVAL_MS = 5000;
+	
 	private AtomicBoolean m_enabled = new AtomicBoolean(false);
 	private ScheduledExecutorService m_scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
 	private ScheduledFuture<?> m_scheduledFuture;
@@ -67,7 +68,7 @@ final class LogViewApi extends HttpServlet {
 			s_logger.debug("POST request to enable WebAppender, ignoring because it is already enabled");
 			return;
 		}
-		m_webAppender = new WebAppender();
+		m_webAppender = new WebAppender(org.apache.log4j.LogManager.getRootLogger().getAppender("stdout").getLayout());
 		org.apache.log4j.LogManager.getRootLogger().addAppender(m_webAppender);
 		m_scheduledFuture = m_scheduledExecutor.scheduleAtFixedRate(new ExpireCheckTask(),
 																	5, 5, TimeUnit.SECONDS);
@@ -81,6 +82,10 @@ final class LogViewApi extends HttpServlet {
 		private final ConcurrentLinkedQueue<LoggingEvent> m_queue = new ConcurrentLinkedQueue<>();
 		private long m_lastChecked = 0L;
 		
+		public WebAppender(Layout layout) {
+			setLayout(layout);
+		}
+		
 		@Override
 		public void close() {
 		}
@@ -92,9 +97,6 @@ final class LogViewApi extends HttpServlet {
 
 		@Override
 		protected void append(LoggingEvent loggingEvent) {
-			if (loggingEvent.getLevel().toInt() < Level.DEBUG_INT) {
-				return;
-			}
 			m_queue.add(loggingEvent);
 		}
 		
@@ -108,7 +110,7 @@ final class LogViewApi extends HttpServlet {
 			
 			LoggingEvent le = m_queue.poll();
 			while (le != null) {
-				messages.add(le.getRenderedMessage());
+				messages.add(getLayout().format(le));
 				le = m_queue.poll();
 			}
 			
@@ -133,6 +135,7 @@ final class LogViewApi extends HttpServlet {
 					m_enabled.set(false);
 					m_webAppender = null;
 					m_scheduledFuture.cancel(false);
+					m_scheduledFuture = null;
 					s_logger.info("WebAppender disabled");
 				}
 			} catch (Exception e) {
