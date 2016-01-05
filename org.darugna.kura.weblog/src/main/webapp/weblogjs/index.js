@@ -24,7 +24,7 @@ $(document).ready(function () {
 			}).fail(function(jqxhr, status, err) {
 		        alert('Cannot set ' + loggerName + ': ' + loggerLevel);
 		    })
-		})
+		});
 		
 		return s;
 	}
@@ -54,9 +54,6 @@ $(document).ready(function () {
 	})
 	.fail(function(jqxhr, status, err) {
         alert(jqxhr);
-//    })
-//    .always(function(jqxhr, status, err) {
-//		alert('Always');
     });
 	
 	
@@ -81,9 +78,9 @@ $(document).ready(function () {
 			dataType: 'json',
 		}).done(function(data) {
 			console.log(data);
+			var messages = $('#messages');
 			for (var i in data) {
-				console.log(data[i]);
-				$('#messages').append($("<p></p>").text(data[i]));
+				messages.append(data[i]);
 			}
 		}).fail(function(jqxhr, status, err) {
 	        alert(jqxhr);
@@ -92,18 +89,32 @@ $(document).ready(function () {
 	    });
 	}
 		
-	
+	var log_view_enabled = false;
 	$('#log_view').click(function(){
 		console.log('log_view click()');
-		$.ajax({
-			url: 'weblogviewapi',
-			type: 'POST'
-		}).fail(function(jqxhr, status, err) {
-	        alert('Cannot activate web appender: ' + err);
-	    }).success(function(jqxhr, status, err) {
-	    	console.log('WebAppender activated, polling started');
-	    	interval = setInterval(readMessages, 2000);
-	    	$('#log_view').prop("disabled",true);
-	    });
+		if(log_view_enabled) {
+			clearInterval(interval);
+	        console.log('Polling stopped');
+	        log_view_enabled = false;
+	        $('#log_view').html("View log");
+		} else {
+			$.ajax({
+				url: 'weblogviewapi',
+				type: 'POST'
+			}).fail(function(jqxhr, status, err) {
+		        alert('Cannot activate web appender: ' + err);
+		    }).success(function(jqxhr, status, err) {
+		    	console.log('WebAppender activated, polling started');
+		    	interval = setInterval(readMessages, 2000);
+		    	$('#log_view').html("Stop");
+		    	log_view_enabled = true;
+		    });
+		}
 	});
+	
+	
+	$('#log_clear').click(function(){
+		$('#messages').empty();
+	});
+	
 });
