@@ -1,5 +1,7 @@
 $(document).ready(function () {
-	POLLING_INTERVAL_MSEC = 500;
+	var POLLING_INTERVAL_MSEC = 500;
+	var SCROLL_MSEC = POLLING_INTERVAL_MSEC / 2;
+	var AUTOSCROLL_ENABLED = false;
 	
 	//
 	// Prepare the comboboxes with loggers and levels
@@ -89,6 +91,16 @@ $(document).ready(function () {
 			for (var i in data) {
 				messages.append(data[i]);
 			}
+			
+			// Scroll to bottom
+			if (AUTOSCROLL_ENABLED) {
+				$('html, body').animate({
+					   scrollTop: $(document).height()},
+					   SCROLL_MSEC,
+					   "swing"
+					);
+			}
+			
 		}).fail(function(jqxhr, status, err) {
 	        clearInterval(interval);
 	        console.log('Polling stopped, API error');
@@ -124,8 +136,17 @@ $(document).ready(function () {
 	});
 	
 	
+	//
+	// Attach click listeners to other elements
+	//
+	
 	$('#log_clear').click(function(){
 		$('#messages').empty();
+	});
+	
+	$('#scroll_checkbox').prop('checked', AUTOSCROLL_ENABLED);
+	$('#scroll_checkbox').change(function() {
+		AUTOSCROLL_ENABLED = $(this).is(":checked");
 	});
 	
 });
