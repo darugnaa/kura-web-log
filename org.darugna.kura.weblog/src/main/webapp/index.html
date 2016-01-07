@@ -1,14 +1,33 @@
 <html>
 <head>
   <title>WebLog</title>
+  <style>
+.fixed-button { width: 150px; display:inline-block; }
+.log {margin: 5px; border: 1px solid; background: #efefef; padding: 5px;}
+  </style>
 </head>
 <body>
+<div>
+	<a name="top"/>
+	<button id="levels_showhide" class="fixed-button">Hide levels</button> <a href="#view">Scroll to view</a>
+</div>
+<div id="levels">
 <table style="width=90%;">
   <thead><tr><th>Logger</th><th>Level</th></tr></thead>
   <tbody id="lltable">
   
   </tbody>
 </table>
+</div>
+<hr/>
+<a name="view"/>
+<div><button id="log_view" class="fixed-button">View log</button> <button id="log_clear" class="fixed-button">Clear</button> <a href="#top">Top</a></div> 
+<div class="log">
+<pre id="messages"></pre>
+</div>
+<div>
+	<input type="checkbox" id="scroll_checkbox">Autoscroll to bottom</input>
+</div>
 
 <script src="weblogjs/jquery-2.1.4.min.js"></script>
 <script src="weblogjs/index.js"></script>

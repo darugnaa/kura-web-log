@@ -32,6 +32,7 @@ public class LogConsole {
 			m_httpService.registerResources("/weblogjs", "www/weblogjs", httpContext);
 			
 			m_httpService.registerServlet("/weblogapi", new LogLevelApi(), null, httpContext);
+			m_httpService.registerServlet("/weblogviewapi", new LogViewApi(), null, httpContext);
 		} catch (NamespaceException|ServletException e) {
 			s_logger.error("Error registering weblog", e);
 			throw new ComponentException(e);
@@ -43,6 +44,7 @@ public class LogConsole {
 		m_httpService.unregister("/weblog");
 		m_httpService.unregister("/weblogjs");
 		m_httpService.unregister("/weblogapi");
+		m_httpService.unregister("/weblogviewapi");
 		
 		s_logger.info("WebLog deactivated");
 	}

@@ -28,14 +28,6 @@
 	<build>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ssh</artifactId>
-				<version>1.0-beta-6</version>
-			</extension>
-		</extensions>
-
 		<plugins>
 
 			<plugin>
@@ -119,25 +111,6 @@
 							</descriptors>
 						</configuration>
 					</execution>
-					<!-- 
-					<execution>
-						<id>standard-jar</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>${project.artifactId}-${project.version}</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
-							<archive>
-								<manifestFile>META-INF/MANIFEST.MF</manifestFile>
-							</archive>
-							<descriptors>
-								<descriptor>src/main/assembly/bundle.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-					 -->
 				</executions>
 			</plugin>
 		</plugins>
