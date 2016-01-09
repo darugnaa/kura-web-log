@@ -5,8 +5,12 @@ Access it on your running kura instance on **http:/kura-ip-address/weblog** and 
 Very useful when developing your own bundles.
 <img src="http://i.imgur.com/88mNJfz.png?1" />
 
+View kura log directly in your browser:  
+<img src="http://i.imgur.com/4QiK8Ta.png?1" />
+
 ## Download
-[org.darugna.kura.weblog 1.0.1](https://docs.google.com/uc?id=0B0tptNwKwCF_UW0tOTBNZU83R0k&export=download)
+- [org.darugna.kura.weblog 1.1.0](https://docs.google.com/uc?id=0B0tptNwKwCF_ZEhmSDBpbnhkUnM&export=download)
+- [org.darugna.kura.weblog 1.0.1](https://docs.google.com/uc?id=0B0tptNwKwCF_UW0tOTBNZU83R0k&export=download)
 
 ## Compile it yourself
 Clone the repository to your local machine
@@ -26,3 +30,11 @@ Now build with Maven
     mvn clean verify
     
 After the compilation you will find the Deployment Package ready to be installed to a remote Kura!
+
+## Kura compatibility
+This release builds with the following *Developer's Workspace (with Web UI)* versions:
+* Kura 1.2.0 **✓**
+* Kura 1.2.1 **✓**
+* Kura 1.2.2 **✓**
+* Kura 1.3.0 **✗**
+
