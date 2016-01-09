@@ -18,7 +18,8 @@
             <outputDirectory>www</outputDirectory>
             <includes>
                 <include>index.html</include>
-				<include>weblogjs/**</include>
+                <include>weblogjs/**</include>
+				<include>weblogcss/**</include>
             </includes>
         </fileSet>
         <fileSet>
