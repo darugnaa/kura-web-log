@@ -30,6 +30,7 @@ public class LogConsole {
 		try {
 			m_httpService.registerResources("/weblog", "www/index.html", httpContext);
 			m_httpService.registerResources("/weblogjs", "www/weblogjs", httpContext);
+			m_httpService.registerResources("/weblogcss", "www/weblogcss", httpContext);
 			
 			m_httpService.registerServlet("/weblogapi", new LogLevelApi(), null, httpContext);
 			m_httpService.registerServlet("/weblogviewapi", new LogViewApi(), null, httpContext);
@@ -42,6 +43,7 @@ public class LogConsole {
 	
 	protected void deactivate(BundleContext context) {
 		m_httpService.unregister("/weblog");
+		m_httpService.unregister("/weblogcss");
 		m_httpService.unregister("/weblogjs");
 		m_httpService.unregister("/weblogapi");
 		m_httpService.unregister("/weblogviewapi");
