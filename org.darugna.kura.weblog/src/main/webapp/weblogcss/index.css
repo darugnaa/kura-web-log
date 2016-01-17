@@ -16,7 +16,7 @@ pre {
 	vertical-align: baseline;
 }
 body {
-	width: 640px;
+	width: 92%;
 	margin: 10px auto;
 	font-size: 16pt;
 	font: inherit;
@@ -58,9 +58,12 @@ button, select{
 	margin: 5px; 
 	padding: 5px;
 	border: 1px solid #484848; 
-	background: #efefef; 
+	background: #efefef;
+	overflow: auto;
+	width: auto;
+	line-height: 1.25em;
 }
 
-#levels{
+#levels {
 	margin-bottom: 25px;
 }
