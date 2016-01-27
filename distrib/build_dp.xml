@@ -15,7 +15,7 @@ Bundle-Version: 1.1.0
 
 		<!-- move everything into place -->
 		<echo message="Copying org.darugna.kura.weblog" />
-        <copy    file="${basedir}/../org.darugna.kura.weblog/target/org.darugna.kura.weblog_1.1.0.jar"
+        <copy    file="${basedir}/../org.darugna.kura.weblog/target/org.darugna.kura.weblog_1.1.1.jar"
                  todir="${project.build.directory}/dp_stage/bundles/" />
                  
 		<!-- Files MUST be included in the jar in the same order as they are declared in the DP MANIFEST.
