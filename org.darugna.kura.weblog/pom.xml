@@ -7,12 +7,12 @@
 	<parent>
 		<groupId>org.darugna.kura</groupId>
 		<artifactId>weblog</artifactId>
-		<version>1.1.0</version>
+		<version>1.1.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>org.darugna.kura.weblog</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>Kura web log level component</name>
 
