@@ -9,7 +9,7 @@ View kura log directly in your browser:
 <img src="http://i.imgur.com/4QiK8Ta.png?1" />
 
 ## Download
-link to be added
+You can [download version 1.1.1 directly](https://github.com/darugnaa/kura-web-log/releases/download/1.1.1/org.darugna.kura.weblog_1.1.1.dp) or visit the [Releases](https://github.com/darugnaa/kura-web-log/releases/) page.
 
 ## Compile it yourself
 Clone the repository to your local machine
