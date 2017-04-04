@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,11 +43,11 @@ final class LogViewApi extends HttpServlet {
 		
 		try {
 			out = response.getWriter();
-			JSONArray json = new JSONArray();
+			ArrayList json = new ArrayList();
 			List<String> messages = m_webAppender.readLogMessages();
 			
 			for (String m : messages) {
-				json.put(m);
+				json.add(m);
 			}
 					
 			out.print(json.toString());

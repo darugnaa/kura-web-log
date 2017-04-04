@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Level;
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,10 +27,10 @@ public final class LogLevelApi extends HttpServlet {
 		
 		try {
 			out = response.getWriter();
-			JSONArray json = new JSONArray();
+			ArrayList json = new ArrayList();
 			Map<String,String>[] orderedLoggers = getLoggersLevel();
 			for (int i = 0; i < orderedLoggers.length; ++i) {
-				json.put(orderedLoggers[i]);
+				json.add(orderedLoggers[i]);
 			}
 					
 			out.print(json.toString());
